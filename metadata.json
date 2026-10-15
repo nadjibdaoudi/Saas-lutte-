@@ -1,0 +1,6 @@
+{
+  "name": "WrestleLab - Greco-Roman Wrestling SaaS",
+  "description": "Professional sports performance and athlete management SaaS dedicated to Greco-Roman wrestling coaches, academies, and athletes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
