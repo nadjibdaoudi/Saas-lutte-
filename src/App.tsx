@@ -23,6 +23,7 @@ import { SettingsView } from './components/settings/SettingsView';
 import { GlobalSearchModal } from './components/common/GlobalSearchModal';
 import { NotificationsModal } from './components/common/NotificationsModal';
 import { AuditLogModal } from './components/common/AuditLogModal';
+import { WrestlingAiAssistantModal } from './components/ai/WrestlingAiAssistantModal';
 import { AuthView } from './components/auth/AuthView';
 import { Athlete } from './types';
 import { Menu } from 'lucide-react';
@@ -39,6 +40,7 @@ const AppContent: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isAuditLogOpen, setIsAuditLogOpen] = useState(false);
+  const [isAiAssistantOpen, setIsAiAssistantOpen] = useState(false);
   const [isMatsideOpen, setIsMatsideOpen] = useState(false);
   const [matsideSessionId, setMatsideSessionId] = useState<string | undefined>(undefined);
   const [isAthleteFormOpen, setIsAthleteFormOpen] = useState(false);
@@ -94,6 +96,7 @@ const AppContent: React.FC = () => {
         onOpenNotifications={() => setIsNotificationsOpen(true)}
         onOpenQuickSession={() => handleOpenMatside()}
         onOpenAuditLog={() => setIsAuditLogOpen(true)}
+        onOpenAiAssistant={() => setIsAiAssistantOpen(true)}
       />
 
       <div className="flex-1 flex overflow-hidden">
@@ -225,6 +228,11 @@ const AppContent: React.FC = () => {
       <AuditLogModal
         isOpen={isAuditLogOpen}
         onClose={() => setIsAuditLogOpen(false)}
+      />
+
+      <WrestlingAiAssistantModal
+        isOpen={isAiAssistantOpen}
+        onClose={() => setIsAiAssistantOpen(false)}
       />
 
       <MatsideRapidEntryModal

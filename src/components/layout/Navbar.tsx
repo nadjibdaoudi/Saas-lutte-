@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   Search, Bell, Globe, Shield, User, 
-  Zap, LogOut, CheckCircle2, AlertTriangle 
+  Zap, LogOut, CheckCircle2, AlertTriangle, Bot, Sparkles
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useData } from '../../context/DataContext';
@@ -13,13 +13,15 @@ interface NavbarProps {
   onOpenNotifications: () => void;
   onOpenQuickSession: () => void;
   onOpenAuditLog: () => void;
+  onOpenAiAssistant?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenSearch,
   onOpenNotifications,
   onOpenQuickSession,
-  onOpenAuditLog
+  onOpenAuditLog,
+  onOpenAiAssistant
 }) => {
   const { user, organization, language, setLanguage, switchRole, logout, t } = useAuth();
   const { notifications } = useData();
@@ -47,8 +49,21 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* Right: Quick Matside Action, Language, Notifications, Role Switcher, Profile */}
+      {/* Right: AI Assistant, Quick Matside Action, Language, Notifications, Role Switcher, Profile */}
       <div className="flex items-center space-x-3 rtl:space-x-reverse">
+        {/* AI Assistant Button */}
+        {onOpenAiAssistant && (
+          <button
+            onClick={onOpenAiAssistant}
+            className="flex items-center space-x-1.5 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition shadow-md shadow-orange-500/20"
+            title="Wrestling AI Assistant"
+          >
+            <Bot className="w-4 h-4" />
+            <span className="hidden sm:inline">AI Coach</span>
+            <Sparkles className="w-3 h-3 text-amber-200" />
+          </button>
+        )}
+
         {/* Matside Quick Entry Button */}
         {user?.role !== 'athlete' && (
           <button
