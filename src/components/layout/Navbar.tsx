@@ -1,12 +1,11 @@
 import React from 'react';
 import { 
-  Search, Bell, Globe, Shield, User, 
-  Zap, LogOut, CheckCircle2, AlertTriangle, Bot, Sparkles
+  Search, Bell, Shield, User,
+  Zap, LogOut, Bot, Sparkles
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useData } from '../../context/DataContext';
 import { UserRole } from '../../types';
-import { LanguageCode } from '../../lib/i18n';
 
 interface NavbarProps {
   onOpenSearch: () => void;
@@ -49,7 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* Right: AI Assistant, Quick Matside Action, Language, Notifications, Role Switcher, Profile */}
+      {/* Right: AI Assistant, Quick Matside Action, Language (EN/AR), Notifications, Role Switcher, Profile */}
       <div className="flex items-center space-x-3 rtl:space-x-reverse">
         {/* AI Assistant Button */}
         {onOpenAiAssistant && (
@@ -85,23 +84,17 @@ export const Navbar: React.FC<NavbarProps> = ({
           <Shield className="w-4 h-4" />
         </button>
 
-        {/* Language Switcher */}
+        {/* Language Switcher (EN & AR) */}
         <div className="flex items-center bg-[#0F172A] rounded-lg p-0.5 border border-slate-700 text-xs">
           <button
-            onClick={() => setLanguage('fr')}
-            className={`px-2 py-1 rounded font-semibold transition ${language === 'fr' ? 'bg-orange-500 text-white shadow-sm' : 'text-slate-400 hover:text-white'}`}
-          >
-            FR
-          </button>
-          <button
             onClick={() => setLanguage('en')}
-            className={`px-2 py-1 rounded font-semibold transition ${language === 'en' ? 'bg-orange-500 text-white shadow-sm' : 'text-slate-400 hover:text-white'}`}
+            className={`px-2.5 py-1 rounded font-semibold transition ${language === 'en' ? 'bg-orange-500 text-white shadow-sm' : 'text-slate-400 hover:text-white'}`}
           >
             EN
           </button>
           <button
             onClick={() => setLanguage('ar')}
-            className={`px-2 py-1 rounded font-semibold transition ${language === 'ar' ? 'bg-orange-500 text-white shadow-sm' : 'text-slate-400 hover:text-white'}`}
+            className={`px-2.5 py-1 rounded font-semibold transition ${language === 'ar' ? 'bg-orange-500 text-white shadow-sm' : 'text-slate-400 hover:text-white'}`}
           >
             العربية
           </button>
@@ -118,7 +111,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           )}
         </button>
 
-        {/* Role Testing Selector */}
+        {/* Role Selector */}
         <div className="hidden lg:flex items-center space-x-1.5 bg-[#0F172A] px-2.5 py-1.5 rounded-lg border border-slate-700 text-xs">
           <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Role:</span>
           <select 
@@ -129,7 +122,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <option value="coach" className="bg-[#1E293B] text-white">Head Coach</option>
             <option value="club_admin" className="bg-[#1E293B] text-white">Club Director</option>
-            <option value="athlete" className="bg-[#1E293B] text-white">Athlete View</option>
+            <option value="athlete" className="bg-[#1E293B] text-white">Wrestler View</option>
             <option value="super_admin" className="bg-[#1E293B] text-white">Super Admin</option>
           </select>
         </div>

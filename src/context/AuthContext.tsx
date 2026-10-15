@@ -22,11 +22,11 @@ interface AuthContextType {
 
 const defaultUser: UserProfile = {
   id: 'usr-coach-01',
-  email: 'ghilas.benamara@insep.fr',
-  firstName: 'Ghilas',
-  lastName: 'Benamara',
+  email: 'headcoach@wrestlelab.io',
+  firstName: 'Olympic',
+  lastName: 'Coach',
   avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
-  preferredLanguage: 'fr',
+  preferredLanguage: 'en',
   role: 'coach',
   organizationId: initialOrganization.id,
   organizationName: initialOrganization.name,
@@ -47,13 +47,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const [language, setLanguageState] = useState<LanguageCode>(() => {
     const saved = localStorage.getItem('wrestlelab_lang') as LanguageCode;
-    return saved || 'fr';
+    return (saved === 'ar' || saved === 'en') ? saved : 'en';
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    // Set RTL for Arabic or LTR for French / English
+    // Set RTL for Arabic or LTR for English
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = language;
     localStorage.setItem('wrestlelab_lang', language);
@@ -85,21 +85,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     let email = user.email;
 
     if (role === 'athlete') {
-      firstName = 'Ibrahim';
-      lastName = 'Ghanem (Athlete View)';
-      email = 'i.ghanem@fflutte.org';
+      firstName = 'Senior';
+      lastName = 'Wrestler (Athlete View)';
+      email = 'wrestler@wrestlelab.io';
     } else if (role === 'club_admin') {
-      firstName = 'Patrice';
-      lastName = 'Mourier (Club Director)';
-      email = 'direction.greco@insep.fr';
+      firstName = 'Club';
+      lastName = 'Director';
+      email = 'direction@wrestlelab.io';
     } else if (role === 'super_admin') {
       firstName = 'System';
       lastName = 'Admin';
       email = 'admin@wrestlelab.io';
     } else {
-      firstName = 'Ghilas';
-      lastName = 'Benamara (Head Coach)';
-      email = 'ghilas.benamara@insep.fr';
+      firstName = 'Olympic';
+      lastName = 'Coach';
+      email = 'headcoach@wrestlelab.io';
     }
 
     setUser({
@@ -133,7 +133,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
       }
       
-      // Fallback local auth for instant prototype testing
       setUser({
         ...defaultUser,
         email: email || defaultUser.email,
@@ -142,7 +141,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return true;
     } catch (err) {
       console.error('Login error:', err);
-      // Fallback to local session on credential error for developer preview
       setUser(defaultUser);
       setIsLoading(false);
       return true;
@@ -157,12 +155,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       let role: UserRole = 'coach';
 
       if (maybeRole) {
-        // called as (email, pass, firstName, lastName, role)
         firstName = nameOrFirst || 'Coach';
         lastName = roleOrLast || 'User';
         role = maybeRole as UserRole;
       } else if (typeof roleOrLast === 'string' && ['super_admin', 'club_admin', 'coach', 'athlete'].includes(roleOrLast)) {
-        // called as (email, pass, fullName, role)
         const parts = (nameOrFirst || '').trim().split(/\s+/);
         firstName = parts[0] || 'Coach';
         lastName = parts.slice(1).join(' ') || 'User';
